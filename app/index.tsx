@@ -4,17 +4,17 @@
  * Single screen layout without scrolling
  */
 
-import { StyleSheet, View, Text, ActivityIndicator } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { GradientBackground } from '@/components/ui/GradientBackground';
-import { LocationHeader } from '@/components/weather/LocationHeader';
 import { ComparisonCard } from '@/components/weather/ComparisonCard';
+import { LocationHeader } from '@/components/weather/LocationHeader';
 import { WeatherDetails } from '@/components/weather/WeatherDetails';
+import { Spacing } from '@/constants/weather-theme';
 import { useLocation } from '@/hooks/use-location';
 import { useWeatherComparison } from '@/hooks/use-weather-comparison';
 import { getCurrentDate } from '@/utils/date-utils';
-import { Spacing } from '@/constants/weather-theme';
+import { StatusBar } from 'expo-status-bar';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function HomeScreen() {
   // Location hook
@@ -72,9 +72,9 @@ export default function HomeScreen() {
             </View>
 
             {/* 2. Comparison Card (flex: 7) */}
-            <View style={styles.comparisonWrapper}>
+            {/* <View style={styles.comparisonWrapper}>
               <ComparisonCard weatherData={weatherData} />
-            </View>
+            </View> */}
 
             {/* 3. Weather Details (flex: 2) */}
             <View style={styles.detailsWrapper}>
