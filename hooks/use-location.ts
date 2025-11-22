@@ -46,51 +46,57 @@ export function useLocation(): UseLocationReturn {
       const { status } = await Location.requestForegroundPermissionsAsync();
 
       if (status !== 'granted') {
-        console.log('Location permission denied, using default location');
+        console.log('📍 Location permission denied, using default location (Seoul)');
         setLocation(DEFAULT_LOCATION);
         setIsLoading(false);
         return;
       }
 
-      // Get current position
-      const position = await Location.getCurrentPositionAsync({
-        accuracy: Location.Accuracy.Balanced,
-      });
-
-      const { latitude, longitude } = position.coords;
-
-      // Reverse geocoding to get address
+      // Get current position with timeout and error handling
       try {
-        const [address] = await Location.reverseGeocodeAsync({
-          latitude,
-          longitude,
+        const position = await Location.getCurrentPositionAsync({
+          accuracy: Location.Accuracy.Balanced,
         });
 
-        if (address) {
-          setLocation({
-            city: address.city || address.region || '서울시',
-            district: address.district || address.subregion || '강남구',
-            coords: { latitude, longitude },
+        const { latitude, longitude } = position.coords;
+
+        // Reverse geocoding to get address
+        try {
+          const [address] = await Location.reverseGeocodeAsync({
+            latitude,
+            longitude,
           });
-        } else {
-          // If geocoding fails, use coordinates with default names
+
+          if (address) {
+            setLocation({
+              city: address.city || address.region || '서울시',
+              district: address.district || address.subregion || '강남구',
+              coords: { latitude, longitude },
+            });
+          } else {
+            // If geocoding fails, use coordinates with default names
+            setLocation({
+              city: '현재 위치',
+              district: '',
+              coords: { latitude, longitude },
+            });
+          }
+        } catch (geocodeError) {
+          console.log('📍 Geocoding unavailable, using coordinates only');
           setLocation({
-            city: '서울시',
-            district: '강남구',
+            city: '현재 위치',
+            district: '',
             coords: { latitude, longitude },
           });
         }
-      } catch (geocodeError) {
-        console.warn('Geocoding failed, using coordinates with default location name');
-        setLocation({
-          city: '서울시',
-          district: '강남구',
-          coords: { latitude, longitude },
-        });
+      } catch (positionError) {
+        // Location services unavailable (common in web/simulator)
+        console.log('📍 Location services unavailable, using default location (Seoul)');
+        setLocation(DEFAULT_LOCATION);
       }
     } catch (err) {
-      console.error('Error fetching location:', err);
-      setError('위치 정보를 가져올 수 없습니다');
+      // Permission request failed
+      console.log('📍 Location access failed, using default location (Seoul)');
       setLocation(DEFAULT_LOCATION);
     } finally {
       setIsLoading(false);

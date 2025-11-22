@@ -12,18 +12,35 @@ interface LocationHeaderProps {
   date: string;
   onRefresh?: () => void;
   isRefreshing?: boolean;
+  onExamplesPress?: () => void;
 }
 
-export function LocationHeader({ location, date, onRefresh, isRefreshing }: LocationHeaderProps) {
+export function LocationHeader({
+  location,
+  date,
+  onRefresh,
+  isRefreshing,
+  onExamplesPress,
+}: LocationHeaderProps) {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
+        {/* Examples Button (Left) */}
+        {onExamplesPress && (
+          <TouchableOpacity style={styles.examplesButton} onPress={onExamplesPress}>
+            <Text style={styles.examplesIcon}>📚</Text>
+          </TouchableOpacity>
+        )}
+
+        {/* Center: Location & Date */}
         <View style={styles.textContainer}>
           <Text style={styles.location}>
             {location.city} {location.district}
           </Text>
           <Text style={styles.date}>{formatDateKorean(date)}</Text>
         </View>
+
+        {/* Refresh Button (Right) */}
         {onRefresh && (
           <TouchableOpacity
             style={styles.refreshButton}
@@ -66,6 +83,17 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: 'rgba(255, 255, 255, 0.8)',
     marginTop: 2,
+  },
+  examplesButton: {
+    width: 36,
+    height: 36,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    left: 0,
+  },
+  examplesIcon: {
+    fontSize: 20,
   },
   refreshButton: {
     width: 36,

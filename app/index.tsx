@@ -8,8 +8,12 @@ import { getCurrentDate } from '@/utils/date-utils';
 import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
 
 export default function HomeScreen() {
+  // Router for navigation
+  const router = useRouter();
+
   // Location hook
   const { location, isLoading: locationLoading } = useLocation();
 
@@ -30,6 +34,11 @@ export default function HomeScreen() {
 
   // Get current temperature for gradient background
   const currentTemperature = weatherData?.today.temperature ?? 20;
+
+  // Navigate to layout examples
+  const handleExamplesPress = () => {
+    router.push('/layout-examples');
+  };
 
   return (
     <GradientBackground temperature={currentTemperature}>
@@ -61,6 +70,7 @@ export default function HomeScreen() {
                 date={getCurrentDate()}
                 onRefresh={refresh}
                 isRefreshing={isRefreshing}
+                onExamplesPress={handleExamplesPress}
               />
             </View>
 
