@@ -1,11 +1,4 @@
-/**
- * Main screen - Weather Time Machine
- * Displays today's weather vs last year's weather comparison
- * Single screen layout without scrolling
- */
-
 import { GradientBackground } from '@/components/ui/GradientBackground';
-import { ComparisonCard } from '@/components/weather/ComparisonCard';
 import { LocationHeader } from '@/components/weather/LocationHeader';
 import { WeatherDetails } from '@/components/weather/WeatherDetails';
 import { Spacing } from '@/constants/weather-theme';
