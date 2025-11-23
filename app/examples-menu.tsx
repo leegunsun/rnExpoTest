@@ -8,7 +8,7 @@ import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { Colors } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
-import { useRouter } from "expo-router";
+import { useRouter, Href } from "expo-router";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
 // 예제 데이터 타입
@@ -17,7 +17,7 @@ interface ExampleItem {
   title: string;
   description: string;
   flutterEquivalent: string;
-  route: string;
+  route: Href;
   icon: string;
   difficulty: "beginner" | "intermediate" | "advanced";
 }
@@ -29,7 +29,7 @@ const EXAMPLES: ExampleItem[] = [
     title: "레이아웃 기초",
     description: "Column, Row, Flex, Stack 등 기본 레이아웃 패턴",
     flutterEquivalent: "Column, Row, Flexible, Stack",
-    route: "/(examples)/layout-examples",
+    route: "/layout-examples",
     icon: "📐",
     difficulty: "beginner",
   },
@@ -38,7 +38,7 @@ const EXAMPLES: ExampleItem[] = [
     title: "앱 바 (App Bar)",
     description: "상단 네비게이션 바와 헤더 구현",
     flutterEquivalent: "AppBar, SliverAppBar",
-    route: "/(examples)/appbar-example",
+    route: "/appbar-example",
     icon: "📱",
     difficulty: "beginner",
   },
@@ -47,7 +47,7 @@ const EXAMPLES: ExampleItem[] = [
     title: "바텀 네비게이션",
     description: "하단 탭 네비게이션 구현",
     flutterEquivalent: "BottomNavigationBar, NavigationBar",
-    route: "/(examples)/bottom-nav-example",
+    route: "/bottom-nav-example",
     icon: "🧭",
     difficulty: "beginner",
   },
@@ -56,7 +56,7 @@ const EXAMPLES: ExampleItem[] = [
     title: "플로팅 액션 버튼",
     description: "화면에 떠있는 액션 버튼 구현",
     flutterEquivalent: "FloatingActionButton",
-    route: "/(examples)/fab-example",
+    route: "/fab-example",
     icon: "➕",
     difficulty: "beginner",
   },
@@ -65,7 +65,7 @@ const EXAMPLES: ExampleItem[] = [
     title: "통합 예제",
     description: "AppBar + BottomNav + FAB 실전 구현",
     flutterEquivalent: "Scaffold 전체 구조",
-    route: "/(examples)/combined-example",
+    route: "/combined-example",
     icon: "🎯",
     difficulty: "intermediate",
   },
@@ -138,7 +138,7 @@ export default function ExamplesIndexScreen() {
                 { backgroundColor: colors.card },
                 pressed && styles.exampleCardPressed,
               ]}
-              onPress={() => router.push(example.route as any)}
+              onPress={() => router.push(example.route)}
             >
               {/* Icon */}
               <View style={styles.iconContainer}>

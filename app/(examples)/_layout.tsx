@@ -29,15 +29,6 @@ export default function ExamplesLayout() {
         },
       }}
     >
-      {/* 예제 인덱스 */}
-      <Stack.Screen
-        name="index"
-        options={{
-          title: "학습 예제",
-          headerShown: true,
-        }}
-      />
-
       {/* 레이아웃 예제 */}
       <Stack.Screen
         name="layout-examples"

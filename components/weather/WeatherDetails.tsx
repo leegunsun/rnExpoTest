@@ -3,10 +3,9 @@
  * Human-friendly design: Dark translucent background with clear contrast
  */
 
-import { View, Text, StyleSheet, Platform } from 'react-native';
-import { BlurView } from 'expo-blur';
-import { Spacing, BorderRadius } from '@/constants/weather-theme';
-import type { WeatherData } from '@/types/weather';
+import { BorderRadius, Spacing } from "@/constants/weather-theme";
+import type { WeatherData } from "@/types/weather";
+import { Platform, StyleSheet, Text, View } from "react-native";
 
 interface WeatherDetailsProps {
   weather: WeatherData;
@@ -29,11 +28,12 @@ function DetailItem({ label, value, icon }: DetailItemProps) {
 }
 
 export function WeatherDetails({ weather }: WeatherDetailsProps) {
+  
   const getAQILevel = (aqi: number): string => {
-    if (aqi <= 50) return '좋음';
-    if (aqi <= 100) return '보통';
-    if (aqi <= 150) return '나쁨';
-    return '매우 나쁨';
+    if (aqi <= 50) return "좋음";
+    if (aqi <= 100) return "보통";
+    if (aqi <= 150) return "나쁨";
+    return "매우 나쁨";
   };
 
   const DetailsContent = (
@@ -42,14 +42,12 @@ export function WeatherDetails({ weather }: WeatherDetailsProps) {
       <DetailItem label="바람" value={`${weather.windSpeed}km/h`} icon="💨" />
       <DetailItem label="미세먼지" value={getAQILevel(weather.aqi)} icon="🌫️" />
     </>
-  );
+  )
 
   return (
     <View style={styles.wrapper}>
-      {Platform.OS === 'ios' ? (
-        <BlurView intensity={40} tint="dark" style={styles.container}>
-          {DetailsContent}
-        </BlurView>
+      {Platform.OS === "ios" ? (
+        <View>{DetailsContent}</View>
       ) : (
         <View style={[styles.container, styles.androidContainer]}>
           {DetailsContent}
@@ -61,33 +59,23 @@ export function WeatherDetails({ weather }: WeatherDetailsProps) {
 
 const styles = StyleSheet.create({
   wrapper: {
-    flex: 1,
-    borderRadius: BorderRadius.md,
-    overflow: 'hidden',
-    // Subtle shadow for depth
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 6,
+    paddingHorizontal: Spacing.md,
+    paddingBottom: Spacing.sm,
   },
   container: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
     borderRadius: BorderRadius.md,
     padding: Spacing.sm,
-    backgroundColor: 'rgba(0, 0, 0, 0.35)',
+    backgroundColor: "rgba(0, 0, 0, 0.35)",
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.15)',
+    borderColor: "rgba(255, 255, 255, 0.15)",
   },
   androidContainer: {
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    backgroundColor: "rgba(0, 0, 0, 0.4)",
   },
   detailItem: {
-    alignItems: 'center',
+    alignItems: "center",
     flex: 1,
   },
   icon: {
@@ -96,13 +84,13 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 10,
-    fontWeight: '500',
-    color: 'rgba(255, 255, 255, 0.7)',
+    fontWeight: "500",
+    color: "rgba(255, 255, 255, 0.7)",
     marginBottom: 2,
   },
   value: {
     fontSize: 13,
-    fontWeight: '600',
-    color: '#FFFFFF',
+    fontWeight: "600",
+    color: "#FFFFFF",
   },
 });

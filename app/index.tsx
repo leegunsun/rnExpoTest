@@ -37,7 +37,10 @@ export default function HomeScreen() {
 
   // Navigate to examples menu
   const handleExamplesPress = () => {
-    router.push('/(examples)');
+    // Route groups (examples) are not included in URL paths
+    // The actual path to app/(examples)/index.tsx is implementation-dependent
+    // Try using the screen name directly or a specific example route
+    router.push('/layout-examples'); // Or create a proper route outside of route groups
   };
 
   return (
@@ -60,29 +63,23 @@ export default function HomeScreen() {
           </View>
         )}
 
-        {/* Main Weather Content - Flat Structure with Flex */}
+        {/* Main Weather Content - Spacer Pattern */}
         {!isLoading && weatherData && location && (
           <>
-            {/* 1. Location Header (flex: 1) */}
-            <View style={styles.headerWrapper}>
-              <LocationHeader
-                location={location}
-                date={getCurrentDate()}
-                onRefresh={refresh}
-                isRefreshing={isRefreshing}
-                onExamplesPress={handleExamplesPress}
-              />
-            </View>
+            {/* 1. Location Header - Top */}
+            <LocationHeader
+              location={location}
+              date={getCurrentDate()}
+              onRefresh={refresh}
+              isRefreshing={isRefreshing}
+              onExamplesPress={handleExamplesPress}
+            />
 
-            {/* 2. Comparison Card (flex: 7) */}
-            {/* <View style={styles.comparisonWrapper}>
-              <ComparisonCard weatherData={weatherData} />
-            </View> */}
+            {/* 2. Spacer - Takes all remaining space */}
+            <View style={{ flex: 1 }} />
 
-            {/* 3. Weather Details (flex: 2) */}
-            <View style={styles.detailsWrapper}>
-              <WeatherDetails weather={weatherData.today} />
-            </View>
+            {/* 3. Weather Details - Bottom */}
+            <WeatherDetails weather={weatherData.today} />
           </>
         )}
       </SafeAreaView>
@@ -93,22 +90,6 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  // Flat structure: All three components at the same level
-  headerWrapper: {
-    flex: 1, // 10% of screen (AppBar)
-    justifyContent: 'center',
-  },
-  comparisonWrapper: {
-    flex: 7, // 70% of screen (Main Content)
-    justifyContent: 'center',
-    paddingHorizontal: Spacing.md,
-  },
-  detailsWrapper: {
-    flex: 2, // 20% of screen (Bottom Details)
-    justifyContent: 'center',
-    paddingHorizontal: Spacing.md,
-    paddingBottom: Spacing.sm,
   },
   centerContainer: {
     flex: 1,
