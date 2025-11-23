@@ -35,9 +35,9 @@ export default function HomeScreen() {
   // Get current temperature for gradient background
   const currentTemperature = weatherData?.today.temperature ?? 20;
 
-  // Navigate to layout examples
+  // Navigate to examples menu
   const handleExamplesPress = () => {
-    router.push('/layout-examples');
+    router.push('/(examples)');
   };
 
   return (
