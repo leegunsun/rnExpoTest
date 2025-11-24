@@ -6,6 +6,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { WeatherIcons } from '@/constants/weather-theme';
 import { formatTemperature } from '@/utils/temperature-utils';
 import { getYearLabel } from '@/utils/date-utils';
+import { ms } from '@/utils/responsive';
 import type { WeatherData } from '@/types/weather';
 
 interface WeatherCardProps {
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
   },
   label: {
-    fontSize: 12,
+    fontSize: ms(12),
     fontWeight: '600',
     color: 'rgba(255, 255, 255, 0.85)',
     marginBottom: 2,
@@ -50,10 +51,10 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   weatherIcon: {
-    fontSize: 36,
+    fontSize: ms(36, 0.3),
   },
   iconLarge: {
-    fontSize: 44,
+    fontSize: ms(44, 0.3),
   },
   temperature: {
     fontWeight: 'bold',
@@ -61,17 +62,17 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   mainTemperature: {
-    fontSize: 48,
-    lineHeight: 52,
+    fontSize: ms(48),
+    lineHeight: ms(52),
   },
   secondaryTemperature: {
-    fontSize: 36,
-    lineHeight: 40,
+    fontSize: ms(36),
+    lineHeight: ms(40),
     fontWeight: '400',
     opacity: 0.8,
   },
   feelsLike: {
-    fontSize: 11,
+    fontSize: ms(11),
     fontWeight: '400',
     color: 'rgba(255, 255, 255, 0.6)',
   },

@@ -5,6 +5,7 @@ import { Spacing } from '@/constants/weather-theme';
 import { useLocation } from '@/hooks/use-location';
 import { useWeatherComparison } from '@/hooks/use-weather-comparison';
 import { getCurrentDate } from '@/utils/date-utils';
+import { ms } from '@/utils/responsive';
 import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -103,20 +104,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.xl,
   },
   loadingText: {
-    fontSize: 16,
+    fontSize: ms(16),
     color: '#FFFFFF',
     marginTop: Spacing.md,
     textAlign: 'center',
   },
   errorText: {
-    fontSize: 18,
+    fontSize: ms(18),
     fontWeight: '600',
     color: '#FFFFFF',
     marginBottom: Spacing.sm,
     textAlign: 'center',
   },
   errorSubtext: {
-    fontSize: 14,
+    fontSize: ms(14),
     color: 'rgba(255, 255, 255, 0.7)',
     textAlign: 'center',
   },

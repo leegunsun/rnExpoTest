@@ -3,6 +3,8 @@
  * Based on modern app design trends 2025
  */
 
+import { moderateScale } from 'react-native-size-matters';
+
 export const WeatherColors = {
   warmer: {
     primary: '#10B981',
@@ -57,47 +59,56 @@ export const WeatherColors = {
   },
 } as const;
 
+/**
+ * Responsive Typography using react-native-size-matters
+ * All font sizes automatically scale based on screen size
+ * @example
+ * import { Typography } from '@/constants/weather-theme';
+ * const styles = StyleSheet.create({
+ *   text: { ...Typography.mainTemperature }
+ * });
+ */
 export const Typography = {
   mainTemperature: {
-    fontSize: 72, // 60-80px range for main temperature
+    fontSize: moderateScale(72), // 60-80px range for main temperature
     fontWeight: 'bold' as const,
-    lineHeight: 80,
+    lineHeight: moderateScale(80),
   },
   secondaryTemperature: {
-    fontSize: 48, // 40-50px for secondary temperature
+    fontSize: moderateScale(48), // 40-50px for secondary temperature
     fontWeight: '400' as const,
-    lineHeight: 56,
+    lineHeight: moderateScale(56),
   },
   temperatureDiff: {
-    fontSize: 32, // 24-32px for difference display
+    fontSize: moderateScale(32), // 24-32px for difference display
     fontWeight: '600' as const,
-    lineHeight: 40,
+    lineHeight: moderateScale(40),
   },
   label: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     fontWeight: '400' as const,
     opacity: 0.7,
-    lineHeight: 20,
+    lineHeight: moderateScale(20),
   },
   location: {
-    fontSize: 20,
+    fontSize: moderateScale(20),
     fontWeight: '500' as const,
-    lineHeight: 28,
+    lineHeight: moderateScale(28),
   },
   date: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     fontWeight: '400' as const,
-    lineHeight: 24,
+    lineHeight: moderateScale(24),
   },
   weatherDetail: {
-    fontSize: 15,
+    fontSize: moderateScale(15),
     fontWeight: '500' as const,
-    lineHeight: 22,
+    lineHeight: moderateScale(22),
   },
   weatherDetailValue: {
-    fontSize: 18,
+    fontSize: moderateScale(18),
     fontWeight: '600' as const,
-    lineHeight: 24,
+    lineHeight: moderateScale(24),
   },
 } as const;
 

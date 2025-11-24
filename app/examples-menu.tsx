@@ -69,6 +69,15 @@ const EXAMPLES: ExampleItem[] = [
     icon: "🎯",
     difficulty: "intermediate",
   },
+  {
+    id: "responsive",
+    title: "반응형 스케일링",
+    description: "react-native-size-matters 완벽 가이드",
+    flutterEquivalent: "flutter_screenutil, responsive_sizer",
+    route: "/examples/responsive-example",
+    icon: "📏",
+    difficulty: "intermediate",
+  },
 ];
 
 export default function ExamplesIndexScreen() {

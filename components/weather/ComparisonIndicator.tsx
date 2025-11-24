@@ -5,6 +5,7 @@
 
 import { View, Text, StyleSheet } from 'react-native';
 import { Spacing, BorderRadius } from '@/constants/weather-theme';
+import { ms } from '@/utils/responsive';
 import {
   getTemperatureDifference,
   formatTemperatureDifference,
@@ -67,16 +68,16 @@ const styles = StyleSheet.create({
     minWidth: '70%',
   },
   arrow: {
-    fontSize: 24,
+    fontSize: ms(24, 0.3),
     marginBottom: 2,
   },
   difference: {
-    fontSize: 24,
+    fontSize: ms(24),
     fontWeight: 'bold',
     marginBottom: 2,
   },
   description: {
-    fontSize: 13,
+    fontSize: ms(13),
     fontWeight: '500',
     color: 'rgba(255, 255, 255, 0.9)',
   },

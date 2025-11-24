@@ -5,6 +5,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Spacing } from '@/constants/weather-theme';
 import { formatDateKorean } from '@/utils/date-utils';
+import { ms, s } from '@/utils/responsive';
 import type { LocationInfo } from '@/types/weather';
 
 interface LocationHeaderProps {
@@ -85,47 +86,47 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   location: {
-    fontSize: 18,
+    fontSize: ms(18),
     fontWeight: '600',
     color: '#FFFFFF',
   },
   date: {
-    fontSize: 13,
+    fontSize: ms(13),
     fontWeight: '400',
     color: 'rgba(255, 255, 255, 0.8)',
     marginTop: 2,
   },
   leftButtons: {
     flexDirection: 'row',
-    gap: 8,
+    gap: s(8),
   },
   examplesButton: {
-    width: 36,
-    height: 36,
+    width: s(36),
+    height: s(36),
     alignItems: 'center',
     justifyContent: 'center',
   },
   examplesIcon: {
-    fontSize: 20,
+    fontSize: ms(20, 0.3),
   },
   routeGroupsButton: {
-    width: 36,
-    height: 36,
+    width: s(36),
+    height: s(36),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgba(78, 205, 196, 0.2)',
-    borderRadius: 8,
+    borderRadius: s(8),
   },
   routeGroupsIcon: {
-    fontSize: 20,
+    fontSize: ms(20, 0.3),
   },
   refreshButton: {
-    width: 36,
-    height: 36,
+    width: s(36),
+    height: s(36),
     alignItems: 'center',
     justifyContent: 'center',
   },
   refreshIcon: {
-    fontSize: 20,
+    fontSize: ms(20, 0.3),
   },
 });

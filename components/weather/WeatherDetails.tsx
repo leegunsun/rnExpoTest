@@ -4,6 +4,7 @@
  */
 
 import { BorderRadius, Spacing } from "@/constants/weather-theme";
+import { ms } from "@/utils/responsive";
 import type { WeatherData } from "@/types/weather";
 import { Platform, StyleSheet, Text, View } from "react-native";
 
@@ -79,17 +80,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   icon: {
-    fontSize: 22,
+    fontSize: ms(22, 0.3),
     marginBottom: 2,
   },
   label: {
-    fontSize: 10,
+    fontSize: ms(10),
     fontWeight: "500",
     color: "rgba(255, 255, 255, 0.7)",
     marginBottom: 2,
   },
   value: {
-    fontSize: 13,
+    fontSize: ms(13),
     fontWeight: "600",
     color: "#FFFFFF",
   },
