@@ -1,17 +1,19 @@
 /**
  * Examples Layout
  *
- * (examples) 라우트 그룹의 레이아웃 설정
- *
- * Route Groups:
- * - 괄호로 감싼 폴더 (예: (examples))는 URL 경로에 포함되지 않음
- * - 관련 화면들을 그룹화하면서 URL 구조는 유지
- * - 각 그룹마다 독립적인 레이아웃 설정 가능
+ * examples 디렉토리의 레이아웃 설정
  *
  * Stack Navigation:
  * - Expo Router의 Stack은 화면 전환과 네비게이션 스택 관리
  * - Flutter의 Navigator.push/pop과 유사
  * - headerShown, title 등 옵션으로 커스터마이징
+ *
+ * URL 구조:
+ * - /examples/layout-examples
+ * - /examples/appbar-example
+ * - /examples/bottom-nav-example
+ * - /examples/fab-example
+ * - /examples/combined-example
  */
 
 import { Stack } from "expo-router";

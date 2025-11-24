@@ -13,6 +13,7 @@ interface LocationHeaderProps {
   onRefresh?: () => void;
   isRefreshing?: boolean;
   onExamplesPress?: () => void;
+  onRouteGroupsPress?: () => void;
 }
 
 export function LocationHeader({
@@ -21,16 +22,26 @@ export function LocationHeader({
   onRefresh,
   isRefreshing,
   onExamplesPress,
+  onRouteGroupsPress,
 }: LocationHeaderProps) {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        {/* Examples Button (Left) */}
-        {onExamplesPress && (
-          <TouchableOpacity style={styles.examplesButton} onPress={onExamplesPress}>
-            <Text style={styles.examplesIcon}>📚</Text>
-          </TouchableOpacity>
-        )}
+        {/* Left Buttons */}
+        <View style={styles.leftButtons}>
+          {/* Examples Button */}
+          {onExamplesPress && (
+            <TouchableOpacity style={styles.examplesButton} onPress={onExamplesPress}>
+              <Text style={styles.examplesIcon}>📚</Text>
+            </TouchableOpacity>
+          )}
+          {/* Route Groups Guide Button */}
+          {onRouteGroupsPress && (
+            <TouchableOpacity style={styles.routeGroupsButton} onPress={onRouteGroupsPress}>
+              <Text style={styles.routeGroupsIcon}>🎯</Text>
+            </TouchableOpacity>
+          )}
+        </View>
 
         {/* Center: Location & Date */}
         <View style={styles.textContainer}>
@@ -84,15 +95,28 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 0.8)',
     marginTop: 2,
   },
+  leftButtons: {
+    flexDirection: 'row',
+    gap: 8,
+  },
   examplesButton: {
     width: 36,
     height: 36,
     alignItems: 'center',
     justifyContent: 'center',
-    position: 'absolute',
-    left: 0,
   },
   examplesIcon: {
+    fontSize: 20,
+  },
+  routeGroupsButton: {
+    width: 36,
+    height: 36,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(78, 205, 196, 0.2)',
+    borderRadius: 8,
+  },
+  routeGroupsIcon: {
     fontSize: 20,
   },
   refreshButton: {
@@ -100,8 +124,6 @@ const styles = StyleSheet.create({
     height: 36,
     alignItems: 'center',
     justifyContent: 'center',
-    position: 'absolute',
-    right: 0,
   },
   refreshIcon: {
     fontSize: 20,

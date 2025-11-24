@@ -218,7 +218,7 @@ export default function CombinedExampleScreen() {
             { borderColor: colors.tint },
             pressed && styles.navButtonPressed,
           ]}
-          onPress={() => router.push("/(examples)/")}
+          onPress={() => router.push("/examples-menu")}
         >
           <Text style={[styles.navButtonText, { color: colors.tint }]}>
             ← 예제 목록으로

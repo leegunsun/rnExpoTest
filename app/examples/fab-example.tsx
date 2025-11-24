@@ -312,7 +312,7 @@ import { Animated } from 'react-native';`}
               { borderColor: colors.tint },
               pressed && styles.navButtonPressed,
             ]}
-            onPress={() => router.push("/(examples)/bottom-nav-example")}
+            onPress={() => router.push("/examples/bottom-nav-example")}
           >
             <Text style={[styles.navButtonTextSecondary, { color: colors.tint }]}>
               ← 이전: 바텀 네비게이션
@@ -326,7 +326,7 @@ import { Animated } from 'react-native';`}
               { backgroundColor: colors.tint },
               pressed && styles.navButtonPressed,
             ]}
-            onPress={() => router.push("/(examples)/combined-example")}
+            onPress={() => router.push("/examples/combined-example")}
           >
             <Text style={styles.navButtonTextPrimary}>
               다음: 통합 예제 →

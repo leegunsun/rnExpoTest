@@ -291,7 +291,7 @@ Container(
               { borderColor: colors.tint },
               pressed && styles.navButtonPressed,
             ]}
-            onPress={() => router.push("/(examples)/appbar-example")}
+            onPress={() => router.push("/examples/appbar-example")}
           >
             <Text style={[styles.navButtonTextSecondary, { color: colors.tint }]}>
               ← 이전: 앱 바
@@ -305,7 +305,7 @@ Container(
               { backgroundColor: colors.tint },
               pressed && styles.navButtonPressed,
             ]}
-            onPress={() => router.push("/(examples)/fab-example")}
+            onPress={() => router.push("/examples/fab-example")}
           >
             <Text style={styles.navButtonTextPrimary}>
               다음: FAB →

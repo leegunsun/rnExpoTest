@@ -273,7 +273,7 @@ export default function AppBarExampleScreen() {
             { backgroundColor: colors.tint },
             pressed && styles.navButtonPressed,
           ]}
-          onPress={() => router.push("/(examples)/bottom-nav-example")}
+          onPress={() => router.push("/examples/bottom-nav-example")}
         >
           <Text style={styles.navButtonText}>
             다음: 바텀 네비게이션 →

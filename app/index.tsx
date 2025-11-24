@@ -37,10 +37,14 @@ export default function HomeScreen() {
 
   // Navigate to examples menu
   const handleExamplesPress = () => {
-    // Route groups (examples) are not included in URL paths
-    // The actual path to app/(examples)/index.tsx is implementation-dependent
-    // Try using the screen name directly or a specific example route
-    router.push('/layout-examples'); // Or create a proper route outside of route groups
+    // Route group 밖의 examples-menu.tsx로 이동
+    // Route group 내부 파일에 직접 접근하지 않고 메뉴 화면을 통해 접근
+    router.push('/examples-menu');
+  };
+
+  // Navigate to Route Groups guide
+  const handleRouteGroupsGuidePress = () => {
+    router.push('/route-groups-guide');
   };
 
   return (
@@ -73,6 +77,7 @@ export default function HomeScreen() {
               onRefresh={refresh}
               isRefreshing={isRefreshing}
               onExamplesPress={handleExamplesPress}
+              onRouteGroupsPress={handleRouteGroupsGuidePress}
             />
 
             {/* 2. Spacer - Takes all remaining space */}

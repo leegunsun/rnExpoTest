@@ -1,84 +1,83 @@
 /**
- * Examples Index - Flutter 개발자를 위한 React Native Expo 예제 모음
+ * Route Groups Guide - 메인 메뉴
  *
- * Flutter에서 자주 사용하는 UI 패턴들을 React Native Expo로 구현하는 방법을 학습합니다.
+ * Expo Router의 Route Groups 개념을 학습하기 위한 예제 모음
+ * 공식 문서 기반 실전 예제
  */
 
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { Colors } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
-import { useRouter, Href } from "expo-router";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useRouter } from "expo-router";
+import {
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
-// 예제 데이터 타입
-interface ExampleItem {
+interface Example {
   id: string;
   title: string;
   description: string;
-  flutterEquivalent: string;
-  route: Href;
+  route: string;
   icon: string;
-  difficulty: "beginner" | "intermediate" | "advanced";
+  difficulty: "basic" | "intermediate" | "advanced";
 }
 
-// 예제 목록
-const EXAMPLES: ExampleItem[] = [
+const EXAMPLES: Example[] = [
   {
-    id: "layout",
-    title: "레이아웃 기초",
-    description: "Column, Row, Flex, Stack 등 기본 레이아웃 패턴",
-    flutterEquivalent: "Column, Row, Flexible, Stack",
-    route: "/examples/layout-examples",
-    icon: "📐",
-    difficulty: "beginner",
+    id: "01-basic",
+    title: "01. 기본 개념",
+    description: "Route Groups vs 일반 디렉터리 비교",
+    route: "/route-groups-guide/01-basic",
+    icon: "📁",
+    difficulty: "basic",
   },
   {
-    id: "appbar",
-    title: "앱 바 (App Bar)",
-    description: "상단 네비게이션 바와 헤더 구현",
-    flutterEquivalent: "AppBar, SliverAppBar",
-    route: "/examples/appbar-example",
-    icon: "📱",
-    difficulty: "beginner",
+    id: "02-layouts",
+    title: "02. Layout 패턴",
+    description: "Route Groups로 다양한 레이아웃 구성",
+    route: "/route-groups-guide/02-layouts",
+    icon: "🎨",
+    difficulty: "basic",
   },
   {
-    id: "bottom-nav",
-    title: "바텀 네비게이션",
-    description: "하단 탭 네비게이션 구현",
-    flutterEquivalent: "BottomNavigationBar, NavigationBar",
-    route: "/examples/bottom-nav-example",
-    icon: "🧭",
-    difficulty: "beginner",
-  },
-  {
-    id: "fab",
-    title: "플로팅 액션 버튼",
-    description: "화면에 떠있는 액션 버튼 구현",
-    flutterEquivalent: "FloatingActionButton",
-    route: "/examples/fab-example",
-    icon: "➕",
-    difficulty: "beginner",
-  },
-  {
-    id: "combined",
-    title: "통합 예제",
-    description: "AppBar + BottomNav + FAB 실전 구현",
-    flutterEquivalent: "Scaffold 전체 구조",
-    route: "/examples/combined-example",
-    icon: "🎯",
+    id: "03-shared-routes",
+    title: "03. Shared Routes",
+    description: "배열 문법으로 화면 공유하기",
+    route: "/route-groups-guide/03-shared-routes",
+    icon: "🔗",
     difficulty: "intermediate",
+  },
+  {
+    id: "04-auth-flow",
+    title: "04. 인증 흐름",
+    description: "로그인/로그아웃 화면 분리",
+    route: "/route-groups-guide/04-auth-flow",
+    icon: "🔐",
+    difficulty: "intermediate",
+  },
+  {
+    id: "05-complex",
+    title: "05. 복합 예제",
+    description: "실전 앱 구조 (Tab + Shared Routes)",
+    route: "/route-groups-guide/05-complex",
+    icon: "🚀",
+    difficulty: "advanced",
   },
 ];
 
-export default function ExamplesIndexScreen() {
+export default function RouteGroupsGuideScreen() {
   const router = useRouter();
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? "light"];
 
-  const getDifficultyColor = (difficulty: ExampleItem["difficulty"]) => {
+  const getDifficultyColor = (difficulty: Example["difficulty"]) => {
     switch (difficulty) {
-      case "beginner":
+      case "basic":
         return "#4ECDC4";
       case "intermediate":
         return "#FFB347";
@@ -87,10 +86,10 @@ export default function ExamplesIndexScreen() {
     }
   };
 
-  const getDifficultyLabel = (difficulty: ExampleItem["difficulty"]) => {
+  const getDifficultyLabel = (difficulty: Example["difficulty"]) => {
     switch (difficulty) {
-      case "beginner":
-        return "초급";
+      case "basic":
+        return "기초";
       case "intermediate":
         return "중급";
       case "advanced":
@@ -105,30 +104,34 @@ export default function ExamplesIndexScreen() {
         <View style={styles.header}>
           <Pressable onPress={() => router.back()} style={styles.backButton}>
             <Text style={[styles.backButtonText, { color: colors.tint }]}>
-              ← 홈으로
+              ← 뒤로
             </Text>
           </Pressable>
           <ThemedText type="title" style={styles.title}>
-            Flutter → RN Expo
+            Route Groups 가이드
           </ThemedText>
           <ThemedText style={styles.subtitle}>
-            학습 예제 모음 📚
+            Expo Router 공식 문서 기반 📚
           </ThemedText>
         </View>
 
         {/* Introduction */}
         <View style={[styles.introBox, { backgroundColor: colors.card }]}>
           <ThemedText type="subtitle" style={styles.introTitle}>
-            👋 환영합니다!
+            🎯 Route Groups란?
           </ThemedText>
           <ThemedText style={styles.introText}>
-            Flutter 개발자를 위한 React Native Expo 예제 모음입니다.
+            괄호로 감싼 디렉터리명 (예: (tabs))은 URL 경로에 포함되지 않습니다.
             {"\n\n"}
-            각 예제는 Flutter의 개념과 비교하여 설명되며, 실제 동작하는 코드를 포함합니다.
+            <ThemedText style={styles.bold}>예시:</ThemedText>
+            {"\n"}• app/(tabs)/feed.tsx → /feed
+            {"\n"}• app/tabs/feed.tsx → /tabs/feed
+            {"\n\n"}
+            파일 구조를 조직화하면서 URL은 간결하게 유지할 수 있습니다.
           </ThemedText>
         </View>
 
-        {/* Examples Grid */}
+        {/* Examples List */}
         <View style={styles.examplesContainer}>
           {EXAMPLES.map((example) => (
             <Pressable
@@ -138,7 +141,7 @@ export default function ExamplesIndexScreen() {
                 { backgroundColor: colors.card },
                 pressed && styles.exampleCardPressed,
               ]}
-              onPress={() => router.push(example.route)}
+              onPress={() => router.push(example.route as any)}
             >
               {/* Icon */}
               <View style={styles.iconContainer}>
@@ -153,14 +156,6 @@ export default function ExamplesIndexScreen() {
                 <ThemedText style={styles.cardDescription}>
                   {example.description}
                 </ThemedText>
-
-                {/* Flutter Equivalent */}
-                <View style={styles.flutterTag}>
-                  <Text style={styles.flutterTagLabel}>Flutter:</Text>
-                  <Text style={[styles.flutterTagText, { color: colors.text }]}>
-                    {example.flutterEquivalent}
-                  </Text>
-                </View>
 
                 {/* Difficulty Badge */}
                 <View style={styles.badgeContainer}>
@@ -187,21 +182,28 @@ export default function ExamplesIndexScreen() {
           ))}
         </View>
 
-        {/* Tips Section */}
+        {/* Key Concepts */}
         <View
           style={[
-            styles.tipsBox,
+            styles.conceptsBox,
             { backgroundColor: colors.card, borderColor: colors.tint },
           ]}
         >
-          <ThemedText type="subtitle" style={styles.tipsTitle}>
-            💡 학습 팁
+          <ThemedText type="subtitle" style={styles.conceptsTitle}>
+            💡 핵심 개념
           </ThemedText>
-          <ThemedText style={styles.tipsText}>
-            1. 순서대로 학습하면 이해가 쉽습니다{"\n"}
-            2. 각 예제의 코드를 직접 수정해보세요{"\n"}
-            3. Flutter 코드와 비교하며 차이점을 파악하세요{"\n"}
-            4. 실제 프로젝트에 바로 적용할 수 있습니다
+          <ThemedText style={styles.conceptsText}>
+            <ThemedText style={styles.bold}>1. 조직화</ThemedText>
+            {"\n"}   URL에 영향 없이 파일 구조 정리
+            {"\n\n"}
+            <ThemedText style={styles.bold}>2. Layout 공유</ThemedText>
+            {"\n"}   _layout.tsx로 공통 레이아웃 적용
+            {"\n\n"}
+            <ThemedText style={styles.bold}>3. Shared Routes</ThemedText>
+            {"\n"}   배열 문법으로 여러 그룹에서 화면 공유
+            {"\n\n"}
+            <ThemedText style={styles.bold}>4. Typed Routes</ThemedText>
+            {"\n"}   타입 안전성 유지하며 네비게이션
           </ThemedText>
         </View>
 
@@ -251,6 +253,9 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     opacity: 0.8,
   },
+  bold: {
+    fontWeight: "700",
+  },
   examplesContainer: {
     marginTop: 24,
     paddingHorizontal: 20,
@@ -294,22 +299,6 @@ const styles = StyleSheet.create({
     opacity: 0.7,
     marginBottom: 8,
   },
-  flutterTag: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 8,
-  },
-  flutterTagLabel: {
-    fontSize: 11,
-    fontWeight: "700",
-    color: "#4ECDC4",
-    marginRight: 4,
-  },
-  flutterTagText: {
-    fontSize: 11,
-    fontFamily: "monospace",
-    opacity: 0.7,
-  },
   badgeContainer: {
     flexDirection: "row",
   },
@@ -332,17 +321,17 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "700",
   },
-  tipsBox: {
+  conceptsBox: {
     marginHorizontal: 20,
     marginTop: 24,
     padding: 20,
     borderRadius: 12,
     borderWidth: 2,
   },
-  tipsTitle: {
+  conceptsTitle: {
     marginBottom: 12,
   },
-  tipsText: {
+  conceptsText: {
     fontSize: 13,
     lineHeight: 20,
     opacity: 0.8,
