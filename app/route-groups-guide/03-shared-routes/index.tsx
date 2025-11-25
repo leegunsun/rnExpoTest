@@ -1,13 +1,23 @@
 /**
  * 03. Shared Routes - 배열 문법으로 화면 공유
  *
- * Route Groups의 핵심 기능!
- * (home,search)/ 디렉터리는 두 개의 경로를 동시에 생성합니다.
+ * 이 화면은 가이드 진입점입니다.
+ * 실제 배열 문법 동작은 (home)과 (search) 탭에서 확인할 수 있습니다.
  *
- * 파일: app/(home,search)/[user].tsx
- * 생성되는 경로:
- * - /(home)/[user]
- * - /(search)/[user]
+ * 파일 구조:
+ * app/route-groups-guide/03-shared-routes/
+ * ├── _layout.tsx          ← 탭 네비게이터 (홈, 검색)
+ * ├── index.tsx            ← 이 파일 (가이드)
+ * ├── (home)/
+ * │   ├── _layout.tsx      ← 홈 탭 스택
+ * │   ├── index.tsx        ← 홈 탭 메인
+ * │   └── [user].tsx       ← 프로필 (공유 컴포넌트 import)
+ * ├── (search)/
+ * │   ├── _layout.tsx      ← 검색 탭 스택
+ * │   ├── index.tsx        ← 검색 탭 메인
+ * │   └── [user].tsx       ← 프로필 (공유 컴포넌트 import)
+ * └── _shared/
+ *     └── UserProfileScreen.tsx  ← 실제 프로필 로직 (공유)
  */
 
 import { ThemedText } from "@/components/themed-text";
@@ -17,7 +27,7 @@ import { useColorScheme } from "@/hooks/use-color-scheme";
 import { useRouter } from "expo-router";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
-export default function SharedRoutesScreen() {
+export default function SharedRoutesGuideScreen() {
   const router = useRouter();
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? "light"];
@@ -58,26 +68,31 @@ export default function SharedRoutesScreen() {
         </View>
 
         <View style={[styles.codeBox, { backgroundColor: colors.card }]}>
-          <ThemedText style={styles.codeTitle}>📂 파일 구조</ThemedText>
+          <ThemedText style={styles.codeTitle}>📂 현재 파일 구조</ThemedText>
           <ThemedText style={styles.codeText}>
-            {`app/
-├── (home,search)/           ← 배열 문법!
-│   ├── _layout.tsx
-│   ├── index.tsx
-│   └── [user].tsx          ← 공유되는 파일
-
-생성되는 경로:
-• /(home)/[user]  → /[user] (홈 탭에서)
-• /(search)/[user] → /[user] (검색 탭에서)`}
+            {`03-shared-routes/
+├── _layout.tsx        ← 탭 네비게이터
+├── index.tsx          ← 이 화면 (가이드)
+├── _shared/           ← 공유 컴포넌트
+│   └── UserProfileScreen.tsx
+├── (home)/
+│   ├── _layout.tsx    ← Stack
+│   ├── index.tsx      ← 홈 탭 메인
+│   └── [user].tsx     ← import 후 export
+└── (search)/
+    ├── _layout.tsx    ← Stack
+    ├── index.tsx      ← 검색 탭 메인
+    └── [user].tsx     ← import 후 export`}
           </ThemedText>
         </View>
 
         <View style={styles.section}>
           <ThemedText type="subtitle" style={styles.sectionTitle}>
-            🚀 실습: 사용자 프로필 공유
+            🚀 실습: 탭으로 이동하여 테스트
           </ThemedText>
           <ThemedText style={styles.sectionDescription}>
-            동일한 프로필 화면이 홈과 검색 탭 모두에서 사용됩니다
+            아래 탭을 눌러 홈/검색 탭으로 이동한 후,{"\n"}
+            각 탭에서 프로필을 클릭해보세요!
           </ThemedText>
 
           <Pressable
@@ -86,31 +101,49 @@ export default function SharedRoutesScreen() {
               { backgroundColor: "#4ECDC4" },
               pressed && styles.buttonPressed,
             ]}
-            onPress={() =>
-              router.push("/route-groups-guide/03-shared-routes/user-baconbrix")
-            }
+            onPress={() => router.push("/route-groups-guide/03-shared-routes/(home)")}
           >
-            <Text style={styles.buttonText}>프로필 보기: @baconbrix →</Text>
+            <Text style={styles.buttonText}>🏠 홈 탭으로 이동</Text>
             <Text style={styles.buttonSubtext}>
-              홈과 검색 탭 모두에서 접근 가능
+              홈 탭에서 프로필 클릭 → "(home)" 컨텍스트
             </Text>
           </Pressable>
 
           <Pressable
             style={({ pressed }) => [
               styles.button,
-              { backgroundColor: colors.tint },
+              { backgroundColor: "#FF6B6B" },
               pressed && styles.buttonPressed,
             ]}
-            onPress={() =>
-              router.push("/route-groups-guide/03-shared-routes/user-expo")
-            }
+            onPress={() => router.push("/route-groups-guide/03-shared-routes/(search)")}
           >
-            <Text style={styles.buttonText}>프로필 보기: @expo →</Text>
+            <Text style={styles.buttonText}>🔍 검색 탭으로 이동</Text>
             <Text style={styles.buttonSubtext}>
-              같은 화면, 다른 네비게이션 컨텍스트
+              검색 탭에서 프로필 클릭 → "(search)" 컨텍스트
             </Text>
           </Pressable>
+        </View>
+
+        <View style={[styles.howItWorksBox, { backgroundColor: colors.card, borderColor: "#FFB347" }]}>
+          <ThemedText type="subtitle" style={styles.howItWorksTitle}>
+            ⚙️ 동작 원리
+          </ThemedText>
+          <ThemedText style={styles.howItWorksText}>
+            <ThemedText style={styles.bold}>1. 홈 탭에서 프로필 이동:</ThemedText>
+            {"\n"}
+            <ThemedText style={styles.code}>router.push("/(home)/user-baconbrix")</ThemedText>
+            {"\n"}→ segments에 "(home)" 포함
+            {"\n"}→ 뒤로 가기 시 홈 탭으로 복귀
+            {"\n\n"}
+            <ThemedText style={styles.bold}>2. 검색 탭에서 프로필 이동:</ThemedText>
+            {"\n"}
+            <ThemedText style={styles.code}>router.push("/(search)/user-baconbrix")</ThemedText>
+            {"\n"}→ segments에 "(search)" 포함
+            {"\n"}→ 뒤로 가기 시 검색 탭으로 복귀
+            {"\n\n"}
+            <ThemedText style={styles.bold}>3. 같은 [user].tsx 파일:</ThemedText>
+            {"\n"}두 경로 모두 (home,search)/[user].tsx 사용!
+          </ThemedText>
         </View>
 
         <View
@@ -151,9 +184,9 @@ export default function SharedRoutesScreen() {
           </ThemedText>
           <ThemedText style={styles.takeawaysText}>
             ✓ (group1,group2) 문법으로 화면 공유{"\n"}
-            ✓ 하나의 파일, 여러 경로{"\n"}
-            ✓ 네비게이션 컨텍스트는 독립적{"\n"}
-            ✓ 네이티브 앱 패턴의 핵심 기능
+            ✓ 각 그룹에 _layout.tsx (Stack) 필요{"\n"}
+            ✓ useSegments()로 현재 그룹 확인{"\n"}
+            ✓ 네비게이션 스택은 그룹별로 독립
           </ThemedText>
         </View>
 
@@ -178,14 +211,18 @@ const styles = StyleSheet.create({
   highlight: { fontWeight: "600", color: "#4ECDC4" },
   codeBox: { marginHorizontal: 20, marginTop: 20, padding: 20, borderRadius: 12 },
   codeTitle: { fontSize: 16, fontWeight: "700", marginBottom: 12 },
-  codeText: { fontSize: 13, fontFamily: "monospace", opacity: 0.8, lineHeight: 20 },
+  codeText: { fontSize: 12, fontFamily: "monospace", opacity: 0.8, lineHeight: 18 },
   section: { marginTop: 24, paddingHorizontal: 20 },
   sectionTitle: { marginBottom: 8 },
-  sectionDescription: { fontSize: 14, opacity: 0.7, marginBottom: 16 },
+  sectionDescription: { fontSize: 14, opacity: 0.7, marginBottom: 16, lineHeight: 20 },
   button: { padding: 16, borderRadius: 8, marginBottom: 12, alignItems: "center" },
   buttonPressed: { opacity: 0.7 },
   buttonText: { fontSize: 16, fontWeight: "600", color: "#FFFFFF" },
   buttonSubtext: { fontSize: 12, color: "rgba(255, 255, 255, 0.8)", marginTop: 4 },
+  howItWorksBox: { marginHorizontal: 20, marginTop: 24, padding: 20, borderRadius: 12, borderWidth: 2 },
+  howItWorksTitle: { marginBottom: 12 },
+  howItWorksText: { fontSize: 13, lineHeight: 22, opacity: 0.8 },
+  code: { fontFamily: "monospace", fontSize: 11, backgroundColor: "rgba(0,0,0,0.1)" },
   useCaseBox: { marginHorizontal: 20, marginTop: 24, padding: 20, borderRadius: 12, borderWidth: 2 },
   useCaseTitle: { marginBottom: 12 },
   useCaseText: { fontSize: 13, lineHeight: 22, opacity: 0.8 },

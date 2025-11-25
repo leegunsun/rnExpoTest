@@ -5,6 +5,7 @@
  */
 
 import { Tabs } from "expo-router";
+import { Text } from "react-native";
 
 export default function TabsLayout() {
   return (
@@ -20,14 +21,14 @@ export default function TabsLayout() {
         name="home"
         options={{
           title: "홈",
-          tabBarIcon: () => <span>🏠</span>,
+          tabBarIcon: () => <Text>🏠</Text>,
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
           title: "설정",
-          tabBarIcon: () => <span>⚙️</span>,
+          tabBarIcon: () => <Text>⚙️</Text>,
         }}
       />
     </Tabs>

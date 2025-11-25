@@ -78,6 +78,15 @@ const EXAMPLES: ExampleItem[] = [
     icon: "📏",
     difficulty: "intermediate",
   },
+  {
+    id: "drawer",
+    title: "드로우어 네비게이션",
+    description: "사이드 메뉴 (Drawer Navigation) 구현",
+    flutterEquivalent: "Drawer, NavigationDrawer",
+    route: "/examples/drawer-example",
+    icon: "☰",
+    difficulty: "intermediate",
+  },
 ];
 
 export default function ExamplesIndexScreen() {

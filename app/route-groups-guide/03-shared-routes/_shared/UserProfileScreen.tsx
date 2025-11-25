@@ -1,11 +1,8 @@
 /**
- * Shared Route - 사용자 프로필 화면
+ * 공유 프로필 화면 컴포넌트
  *
- * 배열 문법 덕분에 이 파일 하나가 두 경로를 생성합니다:
- * - /(home)/[user] → 홈 탭에서 접근
- * - /(search)/[user] → 검색 탭에서 접근
- *
- * 네비게이션 스택은 각각 독립적으로 유지됩니다!
+ * (home)/[user].tsx와 (search)/[user].tsx에서 공유됩니다.
+ * _shared 폴더는 라우트로 인식되지 않습니다 (언더스코어 접두사).
  */
 
 import { ThemedText } from "@/components/themed-text";
@@ -31,7 +28,7 @@ const USERS: Record<string, { name: string; bio: string; followers: string; post
   },
 };
 
-export default function UserProfileScreen() {
+export function UserProfileScreen() {
   const router = useRouter();
   const { user } = useLocalSearchParams<{ user: string }>();
   const pathname = usePathname();
@@ -47,15 +44,25 @@ export default function UserProfileScreen() {
   };
 
   // 현재 어느 그룹에서 접근했는지 판단
-  const currentGroup = segments[segments.length - 3]; // (home) 또는 (search)
+  const currentGroup = segments.find(seg => seg === "(home)" || seg === "(search)");
   const fromTab = currentGroup === "(home)" ? "홈" : currentGroup === "(search)" ? "검색" : "알 수 없음";
+  const tabColor = currentGroup === "(home)" ? "#4ECDC4" : currentGroup === "(search)" ? "#FF6B6B" : "#95A5A6";
+
+  // 🔍 디버깅용 console.log
+  console.log("=== [user].tsx Debug Info ===");
+  console.log("user:", user);
+  console.log("pathname:", pathname);
+  console.log("segments:", JSON.stringify(segments));
+  console.log("currentGroup:", currentGroup);
+  console.log("fromTab:", fromTab);
+  console.log("============================");
 
   return (
     <ThemedView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         {/* Profile Header */}
         <View style={[styles.profileHeader, { backgroundColor: colors.card }]}>
-          <View style={styles.avatar}>
+          <View style={[styles.avatar, { backgroundColor: tabColor }]}>
             <Text style={styles.avatarText}>
               {userData.name.charAt(0).toUpperCase()}
             </Text>
@@ -79,14 +86,14 @@ export default function UserProfileScreen() {
         </View>
 
         {/* Shared Route Info */}
-        <View style={[styles.sharedInfo, { backgroundColor: "#4ECDC4" }]}>
+        <View style={[styles.sharedInfo, { backgroundColor: tabColor }]}>
           <Text style={styles.sharedIcon}>🔗</Text>
-          <ThemedText style={styles.sharedTitle}>
+          <Text style={styles.sharedTitle}>
             Shared Route 동작 중!
-          </ThemedText>
-          <ThemedText style={styles.sharedText}>
-            이 화면은 {fromTab} 탭에서 접근했습니다
-          </ThemedText>
+          </Text>
+          <Text style={styles.sharedText}>
+            이 화면은 <Text style={styles.bold}>{fromTab}</Text> 탭에서 접근했습니다
+          </Text>
         </View>
 
         {/* Technical Details */}
@@ -98,13 +105,20 @@ export default function UserProfileScreen() {
           <View style={styles.detailItem}>
             <ThemedText style={styles.detailLabel}>📂 파일 경로:</ThemedText>
             <ThemedText style={styles.detailValue}>
-              app/(home,search)/[user].tsx
+              _shared/UserProfileScreen.tsx
+            </ThemedText>
+          </View>
+
+          <View style={styles.detailItem}>
+            <ThemedText style={styles.detailLabel}>📍 라우트 파일:</ThemedText>
+            <ThemedText style={styles.detailValue}>
+              ({currentGroup || "?"})/[user].tsx
             </ThemedText>
           </View>
 
           <View style={styles.detailItem}>
             <ThemedText style={styles.detailLabel}>🌐 실제 URL:</ThemedText>
-            <ThemedText style={[styles.detailValue, styles.url]}>
+            <ThemedText style={[styles.detailValue, { color: tabColor }]}>
               {pathname}
             </ThemedText>
           </View>
@@ -115,38 +129,31 @@ export default function UserProfileScreen() {
               {JSON.stringify(segments, null, 2)}
             </ThemedText>
           </View>
-
-          <View style={styles.detailItem}>
-            <ThemedText style={styles.detailLabel}>📍 접근 경로:</ThemedText>
-            <ThemedText style={styles.detailValue}>
-              {currentGroup === "(home)" && "/(home)/[user] → 홈 탭"}
-              {currentGroup === "(search)" && "/(search)/[user] → 검색 탭"}
-            </ThemedText>
-          </View>
         </View>
 
         {/* Explanation */}
         <View
           style={[
             styles.explanationBox,
-            { backgroundColor: colors.card, borderColor: "#FFB347" },
+            { backgroundColor: colors.card, borderColor: tabColor },
           ]}
         >
           <ThemedText type="subtitle" style={styles.explanationTitle}>
             💡 어떻게 동작하나요?
           </ThemedText>
           <ThemedText style={styles.explanationText}>
-            <ThemedText style={styles.bold}>1. 배열 문법:</ThemedText>
-            {"\n"}(home,search)/ 디렉터리가 두 개의 경로를 생성
+            <ThemedText style={styles.bold}>1. 공유 컴포넌트:</ThemedText>
+            {"\n"}_shared/UserProfileScreen.tsx에 로직 작성
             {"\n\n"}
-            <ThemedText style={styles.bold}>2. 독립적 스택:</ThemedText>
-            {"\n"}홈 탭과 검색 탭의 네비게이션 스택은 별도로 관리
+            <ThemedText style={styles.bold}>2. 각 탭에서 import:</ThemedText>
+            {"\n"}(home)/[user].tsx → import 후 export
+            {"\n"}(search)/[user].tsx → import 후 export
             {"\n\n"}
-            <ThemedText style={styles.bold}>3. 뒤로 가기:</ThemedText>
-            {"\n"}뒤로 가면 각 탭의 이전 화면으로 돌아감
+            <ThemedText style={styles.bold}>3. 독립적 스택:</ThemedText>
+            {"\n"}각 탭의 네비게이션 스택이 별도로 관리됨
             {"\n\n"}
-            <ThemedText style={styles.highlight}>
-              ✨ Instagram이나 Twitter에서 사용하는 바로 그 패턴입니다!
+            <ThemedText style={{ fontWeight: "600", color: tabColor }}>
+              ✨ 뒤로 가기하면 {fromTab} 탭으로 돌아갑니다!
             </ThemedText>
           </ThemedText>
         </View>
@@ -154,12 +161,12 @@ export default function UserProfileScreen() {
         <Pressable
           style={({ pressed }) => [
             styles.backButton,
-            { borderColor: colors.tint },
+            { borderColor: tabColor },
             pressed && styles.buttonPressed,
           ]}
           onPress={() => router.back()}
         >
-          <Text style={[styles.backButtonText, { color: colors.tint }]}>
+          <Text style={[styles.backButtonText, { color: tabColor }]}>
             ← {fromTab} 탭으로 돌아가기
           </Text>
         </Pressable>
@@ -174,7 +181,7 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   scrollContent: { paddingBottom: 40 },
   profileHeader: {
-    paddingTop: 60,
+    paddingTop: 20,
     paddingHorizontal: 20,
     paddingBottom: 32,
     alignItems: "center",
@@ -185,7 +192,6 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: "#4ECDC4",
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 16,
@@ -213,6 +219,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   sharedText: { fontSize: 14, color: "#FFFFFF", opacity: 0.9 },
+  bold: { fontWeight: "700" },
   detailsBox: {
     marginHorizontal: 20,
     marginTop: 24,
@@ -223,7 +230,6 @@ const styles = StyleSheet.create({
   detailItem: { marginBottom: 16 },
   detailLabel: { fontSize: 13, fontWeight: "700", marginBottom: 6 },
   detailValue: { fontSize: 12, fontFamily: "monospace", opacity: 0.8 },
-  url: { color: "#4ECDC4" },
   explanationBox: {
     marginHorizontal: 20,
     marginTop: 24,
@@ -233,8 +239,6 @@ const styles = StyleSheet.create({
   },
   explanationTitle: { marginBottom: 12 },
   explanationText: { fontSize: 13, lineHeight: 22, opacity: 0.8 },
-  bold: { fontWeight: "700" },
-  highlight: { fontWeight: "600", color: "#4ECDC4" },
   backButton: {
     marginHorizontal: 20,
     marginTop: 24,
