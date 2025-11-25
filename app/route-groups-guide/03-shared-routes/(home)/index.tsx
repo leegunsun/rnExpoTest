@@ -4,6 +4,10 @@
  * 여기서 [user] 프로필로 이동하면:
  * - segments에 "(home)"이 포함됨
  * - 뒤로 가기하면 이 화면으로 돌아옴
+ *
+ * 여러 파라미터 전달 예제:
+ * - user: 동적 세그먼트 (URL 경로에 포함)
+ * - tab, highlight, referrer: 쿼리 파라미터
  */
 
 import { ThemedText } from "@/components/themed-text";
@@ -25,16 +29,13 @@ export default function HomeTabScreen() {
           <Text style={styles.headerIcon}>🏠</Text>
           <ThemedText style={styles.headerTitle}>홈 탭</ThemedText>
           <ThemedText style={styles.headerSubtitle}>
-            여기서 프로필로 이동하면 "(home)" 컨텍스트가 유지됩니다
+            여러 파라미터 전달 예제
           </ThemedText>
         </View>
 
         <View style={styles.section}>
           <ThemedText type="subtitle" style={styles.sectionTitle}>
-            👥 추천 사용자
-          </ThemedText>
-          <ThemedText style={styles.sectionDescription}>
-            프로필을 클릭하면 공유된 [user].tsx가 렌더링됩니다
+            👥 기본 파라미터 (user만 전달)
           </ThemedText>
 
           <Pressable
@@ -53,46 +54,127 @@ export default function HomeTabScreen() {
             </View>
             <View style={styles.userInfo}>
               <ThemedText style={styles.userName}>Bacon Brix</ThemedText>
-              <ThemedText style={styles.userHandle}>@baconbrix</ThemedText>
+              <ThemedText style={styles.userHandle}>기본 (user만)</ThemedText>
             </View>
             <Text style={styles.arrow}>→</Text>
           </Pressable>
+        </View>
 
+        {/* 여러 파라미터 예제 섹션 */}
+        <View style={styles.section}>
+          <ThemedText type="subtitle" style={styles.sectionTitle}>
+            📦 여러 파라미터 전달 예제
+          </ThemedText>
+          <ThemedText style={styles.sectionDescription}>
+            동적 세그먼트 + 쿼리 파라미터를 함께 전달합니다
+          </ThemedText>
+
+          {/* 예제 1: 탭 지정 */}
           <Pressable
             style={({ pressed }) => [
               styles.userCard,
-              { backgroundColor: colors.card },
+              { backgroundColor: colors.card, borderLeftWidth: 4, borderLeftColor: "#FF6B6B" },
               pressed && styles.pressed,
             ]}
             onPress={() => router.push({
               pathname: "/route-groups-guide/03-shared-routes/(home)/[user]",
-              params: { user: "user-expo" }
+              params: {
+                user: "user-baconbrix",
+                tab: "posts",           // 기본 탭
+                referrer: "home-feed"   // 어디서 왔는지
+              }
+            })}
+          >
+            <View style={[styles.avatar, { backgroundColor: "#FF6B6B" }]}>
+              <Text style={styles.avatarText}>📝</Text>
+            </View>
+            <View style={styles.userInfo}>
+              <ThemedText style={styles.userName}>게시물 탭으로 이동</ThemedText>
+              <ThemedText style={styles.paramText}>tab: "posts", referrer: "home-feed"</ThemedText>
+            </View>
+            <Text style={styles.arrow}>→</Text>
+          </Pressable>
+
+          {/* 예제 2: 팔로워 탭 + 하이라이트 */}
+          <Pressable
+            style={({ pressed }) => [
+              styles.userCard,
+              { backgroundColor: colors.card, borderLeftWidth: 4, borderLeftColor: "#4ECDC4" },
+              pressed && styles.pressed,
+            ]}
+            onPress={() => router.push({
+              pathname: "/route-groups-guide/03-shared-routes/(home)/[user]",
+              params: {
+                user: "user-expo",
+                tab: "followers",
+                highlight: "true",
+                badge: "verified"
+              }
             })}
           >
             <View style={[styles.avatar, { backgroundColor: "#4ECDC4" }]}>
-              <Text style={styles.avatarText}>E</Text>
+              <Text style={styles.avatarText}>👥</Text>
             </View>
             <View style={styles.userInfo}>
-              <ThemedText style={styles.userName}>Expo Team</ThemedText>
-              <ThemedText style={styles.userHandle}>@expo</ThemedText>
+              <ThemedText style={styles.userName}>팔로워 + 하이라이트</ThemedText>
+              <ThemedText style={styles.paramText}>tab: "followers", highlight: "true", badge: "verified"</ThemedText>
+            </View>
+            <Text style={styles.arrow}>→</Text>
+          </Pressable>
+
+          {/* 예제 3: 모든 파라미터 */}
+          <Pressable
+            style={({ pressed }) => [
+              styles.userCard,
+              { backgroundColor: colors.card, borderLeftWidth: 4, borderLeftColor: "#FFB347" },
+              pressed && styles.pressed,
+            ]}
+            onPress={() => router.push({
+              pathname: "/route-groups-guide/03-shared-routes/(home)/[user]",
+              params: {
+                user: "user-baconbrix",
+                tab: "media",
+                referrer: "recommendation",
+                highlight: "true",
+                scrollTo: "top",
+                showModal: "follow"
+              }
+            })}
+          >
+            <View style={[styles.avatar, { backgroundColor: "#FFB347" }]}>
+              <Text style={styles.avatarText}>🎯</Text>
+            </View>
+            <View style={styles.userInfo}>
+              <ThemedText style={styles.userName}>모든 파라미터 전달</ThemedText>
+              <ThemedText style={styles.paramText}>tab, referrer, highlight, scrollTo, showModal</ThemedText>
             </View>
             <Text style={styles.arrow}>→</Text>
           </Pressable>
         </View>
 
-        <View style={[styles.infoBox, { backgroundColor: colors.card, borderColor: "#4ECDC4" }]}>
-          <ThemedText type="subtitle" style={styles.infoTitle}>
-            💡 홈 탭에서의 이동
+        {/* 코드 설명 박스 */}
+        <View style={[styles.codeBox, { backgroundColor: colors.card, borderColor: "#4ECDC4" }]}>
+          <ThemedText type="subtitle" style={styles.codeTitle}>
+            💻 코드 예시
           </ThemedText>
-          <ThemedText style={styles.infoText}>
-            <ThemedText style={styles.code}>router.push("/(home)/user-baconbrix")</ThemedText>
-            {"\n\n"}
-            이렇게 이동하면:{"\n"}
-            • segments에 "(home)" 포함{"\n"}
-            • 프로필 화면에서 "홈 탭에서 접근" 표시{"\n"}
-            • 뒤로 가기 → 이 화면으로 복귀
+          <ThemedText style={styles.codeText}>
+{`router.push({
+  pathname: "/.../[user]",
+  params: {
+    user: "user-baconbrix",  // URL 경로
+    tab: "posts",            // 쿼리 파라미터
+    referrer: "home-feed",   // 쿼리 파라미터
+    highlight: "true"        // 쿼리 파라미터
+  }
+})`}
+          </ThemedText>
+          <ThemedText style={[styles.resultText, { color: colors.tint }]}>
+            {"\n"}결과 URL:{"\n"}
+            /user-baconbrix?tab=posts&referrer=home-feed&highlight=true
           </ThemedText>
         </View>
+
+        <View style={{ height: 40 }} />
       </ScrollView>
     </ThemedView>
   );
@@ -132,14 +214,15 @@ const styles = StyleSheet.create({
   userInfo: { flex: 1, marginLeft: 12 },
   userName: { fontSize: 16, fontWeight: "600" },
   userHandle: { fontSize: 14, opacity: 0.7 },
+  paramText: { fontSize: 11, fontFamily: "monospace", opacity: 0.6, marginTop: 4 },
   arrow: { fontSize: 20, opacity: 0.5 },
-  infoBox: {
+  codeBox: {
     marginHorizontal: 20,
     padding: 20,
     borderRadius: 12,
     borderWidth: 2,
   },
-  infoTitle: { marginBottom: 12 },
-  infoText: { fontSize: 13, lineHeight: 22, opacity: 0.8 },
-  code: { fontFamily: "monospace", backgroundColor: "rgba(0,0,0,0.1)", fontSize: 12 },
+  codeTitle: { marginBottom: 12 },
+  codeText: { fontSize: 11, fontFamily: "monospace", opacity: 0.8, lineHeight: 18 },
+  resultText: { fontSize: 11, fontFamily: "monospace", lineHeight: 16 },
 });

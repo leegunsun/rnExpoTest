@@ -12,12 +12,13 @@
  * │   ├── _layout.tsx      ← 홈 탭 스택
  * │   ├── index.tsx        ← 홈 탭 메인
  * │   └── [user].tsx       ← 프로필 (공유 컴포넌트 import)
- * ├── (search)/
- * │   ├── _layout.tsx      ← 검색 탭 스택
- * │   ├── index.tsx        ← 검색 탭 메인
- * │   └── [user].tsx       ← 프로필 (공유 컴포넌트 import)
- * └── _shared/
- *     └── UserProfileScreen.tsx  ← 실제 프로필 로직 (공유)
+ * └── (search)/
+ *     ├── _layout.tsx      ← 검색 탭 스택
+ *     ├── index.tsx        ← 검색 탭 메인
+ *     └── [user].tsx       ← 프로필 (공유 컴포넌트 import)
+ *
+ * components/route-groups-guide/
+ * └── UserProfileScreen.tsx  ← 실제 프로필 로직 (app 외부에서 공유)
  */
 
 import { ThemedText } from "@/components/themed-text";
@@ -70,19 +71,20 @@ export default function SharedRoutesGuideScreen() {
         <View style={[styles.codeBox, { backgroundColor: colors.card }]}>
           <ThemedText style={styles.codeTitle}>📂 현재 파일 구조</ThemedText>
           <ThemedText style={styles.codeText}>
-            {`03-shared-routes/
+            {`app/route-groups-guide/03-shared-routes/
 ├── _layout.tsx        ← 탭 네비게이터
 ├── index.tsx          ← 이 화면 (가이드)
-├── _shared/           ← 공유 컴포넌트
-│   └── UserProfileScreen.tsx
 ├── (home)/
 │   ├── _layout.tsx    ← Stack
 │   ├── index.tsx      ← 홈 탭 메인
-│   └── [user].tsx     ← import 후 export
+│   └── [user].tsx     ← import 공유 컴포넌트
 └── (search)/
     ├── _layout.tsx    ← Stack
     ├── index.tsx      ← 검색 탭 메인
-    └── [user].tsx     ← import 후 export`}
+    └── [user].tsx     ← import 공유 컴포넌트
+
+components/route-groups-guide/
+└── UserProfileScreen.tsx  ← 공유 (app 외부)`}
           </ThemedText>
         </View>
 

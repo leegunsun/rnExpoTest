@@ -5,6 +5,6 @@
  * 실제 프로젝트에서는 공통 컴포넌트를 분리하여 재사용합니다.
  */
 
-import { UserProfileScreen } from "../_shared/UserProfileScreen";
+import { UserProfileScreen } from "@/components/route-groups-guide/UserProfileScreen";
 
 export default UserProfileScreen;
