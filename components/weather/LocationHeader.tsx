@@ -15,6 +15,7 @@ interface LocationHeaderProps {
   isRefreshing?: boolean;
   onExamplesPress?: () => void;
   onRouteGroupsPress?: () => void;
+  onCharacterChartPress?: () => void;
 }
 
 export function LocationHeader({
@@ -24,6 +25,7 @@ export function LocationHeader({
   isRefreshing,
   onExamplesPress,
   onRouteGroupsPress,
+  onCharacterChartPress,
 }: LocationHeaderProps) {
   return (
     <View style={styles.container}>
@@ -40,6 +42,12 @@ export function LocationHeader({
           {onRouteGroupsPress && (
             <TouchableOpacity style={styles.routeGroupsButton} onPress={onRouteGroupsPress}>
               <Text style={styles.routeGroupsIcon}>🎯</Text>
+            </TouchableOpacity>
+          )}
+          {/* Character Chart Button */}
+          {onCharacterChartPress && (
+            <TouchableOpacity style={styles.chartButton} onPress={onCharacterChartPress}>
+              <Text style={styles.chartIcon}>📊</Text>
             </TouchableOpacity>
           )}
         </View>
@@ -118,6 +126,17 @@ const styles = StyleSheet.create({
     borderRadius: s(8),
   },
   routeGroupsIcon: {
+    fontSize: ms(20, 0.3),
+  },
+  chartButton: {
+    width: s(36),
+    height: s(36),
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(139, 92, 246, 0.2)',
+    borderRadius: s(8),
+  },
+  chartIcon: {
     fontSize: ms(20, 0.3),
   },
   refreshButton: {
