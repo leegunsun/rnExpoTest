@@ -48,6 +48,11 @@ export default function HomeScreen() {
     router.push('/route-groups-guide');
   };
 
+  // Navigate to Character Chart
+  const handleCharacterChartPress = () => {
+    router.push('/character-chart');
+  };
+
   return (
     <GradientBackground temperature={currentTemperature}>
       <StatusBar style="light" />
@@ -79,6 +84,7 @@ export default function HomeScreen() {
               isRefreshing={isRefreshing}
               onExamplesPress={handleExamplesPress}
               onRouteGroupsPress={handleRouteGroupsGuidePress}
+              onCharacterChartPress={handleCharacterChartPress}
             />
 
             {/* 2. Spacer - Takes all remaining space */}
