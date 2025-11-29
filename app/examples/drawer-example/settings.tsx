@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, ScrollView, Switch, TouchableOpacity } from 're
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { shadows } from '@/utils/shadow-utils';
 
 export default function SettingsScreen() {
   const colorScheme = useColorScheme();
@@ -204,11 +205,7 @@ const styles = StyleSheet.create({
   },
   card: {
     borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    ...shadows.md,
   },
   settingItem: {
     flexDirection: 'row',
@@ -246,11 +243,7 @@ const styles = StyleSheet.create({
     margin: 16,
     padding: 16,
     borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    ...shadows.md,
   },
   logoutText: {
     fontSize: 16,

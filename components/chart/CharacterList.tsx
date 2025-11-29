@@ -20,6 +20,7 @@ import Animated, {
 
 import { Character, CharacterPosition } from '@/types/character';
 import { Colors } from '@/constants/theme';
+import { shadows } from '@/utils/shadow-utils';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -198,11 +199,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: '#fff',
     width: 80,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    ...shadows.md,
   },
   characterItemSelected: {
     backgroundColor: '#E8F4FD',

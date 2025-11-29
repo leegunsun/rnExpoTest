@@ -19,6 +19,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useUsers } from '@/api/queries/use-users';
+import { shadows } from '@/utils/shadow-utils';
 
 export function UserListExample() {
   const [page, setPage] = useState(1);
@@ -162,11 +163,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 16,
     marginBottom: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    ...shadows.md,
   },
   userName: {
     fontSize: 18,

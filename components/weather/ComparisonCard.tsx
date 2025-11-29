@@ -9,6 +9,7 @@ import { WeatherCard } from './WeatherCard';
 import { ComparisonIndicator } from './ComparisonIndicator';
 import { BorderRadius, Spacing } from '@/constants/weather-theme';
 import { getTemperatureComparison } from '@/utils/temperature-utils';
+import { shadows } from '@/utils/shadow-utils';
 import type { WeatherComparison } from '@/types/weather';
 
 interface ComparisonCardProps {
@@ -58,14 +59,7 @@ const styles = StyleSheet.create({
     borderRadius: BorderRadius.lg,
     overflow: 'hidden',
     // Subtle shadow for depth
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 8,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 12,
-    elevation: 8,
+    ...shadows.xl,
   },
   card: {
     borderRadius: BorderRadius.lg,

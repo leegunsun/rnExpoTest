@@ -1,5 +1,6 @@
-import { QueryClient, onlineManager } from '@tanstack/react-query';
 import NetInfo from '@react-native-community/netinfo';
+import { QueryClient, onlineManager } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 
 /**
  * React Query Configuration
@@ -35,7 +36,14 @@ export function createQueryClient() {
         gcTime: 5 * 60 * 1000, // 5 minutes
 
         // Retry failed requests
-        retry: 2,
+        retry: (failureCount, error) => {
+        // 400, 403은 재시도하지 않음
+        if (error instanceof AxiosError) {
+          const status = error.response?.status;
+          if (status === 400 || status === 403) return false;
+        }
+        return failureCount < 3;
+      },
 
         // Refetch on window focus (useful for web)
         refetchOnWindowFocus: false,

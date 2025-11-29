@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Linking } from 'r
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { shadows } from '@/utils/shadow-utils';
 
 interface FAQItem {
   question: string;
@@ -202,11 +203,7 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 12,
     marginBottom: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    ...shadows.md,
   },
   faqItemExpanded: {
     marginBottom: 12,
@@ -229,11 +226,7 @@ const styles = StyleSheet.create({
   },
   card: {
     borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    ...shadows.md,
   },
   contactItem: {
     flexDirection: 'row',

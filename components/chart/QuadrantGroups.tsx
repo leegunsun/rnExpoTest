@@ -9,6 +9,7 @@ import Animated, { FadeInDown } from 'react-native-reanimated';
 import { Character, CharacterPosition } from '@/types/character';
 import { getCharacterById } from '@/data/characters';
 import { Colors } from '@/constants/theme';
+import { shadows } from '@/utils/shadow-utils';
 
 interface QuadrantGroupsProps {
   charactersByQuadrant: {
@@ -166,11 +167,7 @@ const styles = StyleSheet.create({
     padding: 12,
     marginBottom: 10,
     borderLeftWidth: 4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 1,
+    ...shadows.sm,
   },
   sectionHeader: {
     flexDirection: 'row',

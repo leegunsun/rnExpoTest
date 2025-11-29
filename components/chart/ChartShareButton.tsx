@@ -8,6 +8,7 @@ import * as Sharing from 'expo-sharing';
 import { captureRef } from 'react-native-view-shot';
 
 import { Colors } from '@/constants/theme';
+import { createShadow } from '@/utils/shadow-utils';
 
 interface ChartShareButtonProps {
   chartRef: React.RefObject<View | null>;
@@ -82,15 +83,16 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 12,
     gap: 8,
-    shadowColor: '#3B82F6',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 4,
+    ...createShadow({
+      color: '#3B82F6',
+      offsetY: 4,
+      opacity: 0.3,
+      radius: 8,
+      elevation: 4,
+    }),
   },
   buttonDisabled: {
     backgroundColor: '#9CA3AF',
-    shadowOpacity: 0,
   },
   buttonIcon: {
     fontSize: 18,

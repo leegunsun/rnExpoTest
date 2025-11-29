@@ -34,6 +34,7 @@ import {
   View,
   Alert,
 } from "react-native";
+import { shadows } from "@/utils/shadow-utils";
 
 // 탭 데이터
 const TABS = [
@@ -530,11 +531,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#E74C3C",
     justifyContent: "center",
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 8,
+    ...shadows.xl,
   },
   fabIcon: {
     fontSize: 28,

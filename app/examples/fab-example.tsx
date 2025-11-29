@@ -36,6 +36,7 @@ import {
   View,
   Alert,
 } from "react-native";
+import { shadows, createShadow } from "@/utils/shadow-utils";
 
 export default function FabExampleScreen() {
   const router = useRouter();
@@ -748,11 +749,7 @@ const styles = StyleSheet.create({
     borderRadius: 28,
     justifyContent: "center",
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 8,
+    ...shadows.xl,
   },
   fabIcon: {
     fontSize: 28,
@@ -777,11 +774,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 24,
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 8,
+    ...shadows.xl,
   },
   fabLabel: {
     color: "white",
@@ -812,11 +805,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 4,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 4,
+    ...shadows.lg,
     fontSize: 12,
     fontWeight: "600",
   },

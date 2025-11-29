@@ -32,6 +32,7 @@ import {
   Text,
   View,
 } from "react-native";
+import { shadows } from "@/utils/shadow-utils";
 
 export default function BottomNavExampleScreen() {
   const router = useRouter();
@@ -811,11 +812,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 24,
     paddingVertical: 8,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
+    ...shadows.lg,
   },
   floatingItem: {
     flex: 1,
@@ -842,11 +839,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#4ECDC4",
     justifyContent: "center",
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 8,
+    ...shadows.xl,
   },
   fabIcon: {
     fontSize: 32,

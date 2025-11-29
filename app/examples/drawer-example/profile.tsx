@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { shadows } from '@/utils/shadow-utils';
 
 export default function ProfileScreen() {
   const colorScheme = useColorScheme();
@@ -100,11 +101,7 @@ const styles = StyleSheet.create({
   header: {
     padding: 24,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    ...shadows.md,
   },
   avatar: {
     width: 120,
@@ -165,11 +162,7 @@ const styles = StyleSheet.create({
   infoCard: {
     borderRadius: 12,
     padding: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    ...shadows.md,
   },
   infoItem: {
     flexDirection: 'row',
